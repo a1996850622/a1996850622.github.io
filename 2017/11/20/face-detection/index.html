@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[OpenCV] 臉部偵測 (Face Detection) | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我的實作環境 作業系統： Ubuntu 17.04 OpenCV 函式庫版本： Version 3.3 程式語言： C++   在作業系統方面請不用擔心，因為 OpenCV 是一個跨平台的電腦視覺函式庫   臉部偵測 - Face Detection來寫一個簡單的臉部偵測(Face Detection) 程式，使其將一張照片的人臉以及人眼圈出。 先建立檔案先依序建立以下幾個檔案： 1234$ mk">
+<meta name="keywords" content="OpenCV C&#x2F;C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[OpenCV] 臉部偵測 (Face Detection)">
+<meta property="og:url" content="http://yoursite.com/2017/11/20/face-detection/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="我的實作環境 作業系統： Ubuntu 17.04 OpenCV 函式庫版本： Version 3.3 程式語言： C++   在作業系統方面請不用擔心，因為 OpenCV 是一個跨平台的電腦視覺函式庫   臉部偵測 - Face Detection來寫一個簡單的臉部偵測(Face Detection) 程式，使其將一張照片的人臉以及人眼圈出。 先建立檔案先依序建立以下幾個檔案： 1234$ mk">
+<meta property="og:image" content="https://raw.githubusercontent.com/a1996850622/a1996850622.github.io/master/Document/FaceID/picture01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/a1996850622/a1996850622.github.io/master/Document/FaceID/picture02.png">
+<meta property="og:updated_time" content="2018-01-10T13:26:38.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[OpenCV] 臉部偵測 (Face Detection)">
+<meta name="twitter:description" content="我的實作環境 作業系統： Ubuntu 17.04 OpenCV 函式庫版本： Version 3.3 程式語言： C++   在作業系統方面請不用擔心，因為 OpenCV 是一個跨平台的電腦視覺函式庫   臉部偵測 - Face Detection來寫一個簡單的臉部偵測(Face Detection) 程式，使其將一張照片的人臉以及人眼圈出。 先建立檔案先依序建立以下幾個檔案： 1234$ mk">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/a1996850622/a1996850622.github.io/master/Document/FaceID/picture01.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-face-detection" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/20/face-detection/" class="article-date">
+  <time datetime="2017-11-19T19:20:51.000Z" itemprop="datePublished">2017-11-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenCV/">OpenCV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [OpenCV] 臉部偵測 (Face Detection)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="我的實作環境"><a href="#我的實作環境" class="headerlink" title="我的實作環境"></a>我的實作環境</h2><ul>
+<li><strong>作業系統：</strong> Ubuntu 17.04</li>
+<li><strong>OpenCV 函式庫版本：</strong> <code>Version 3.3</code></li>
+<li><strong>程式語言：</strong> C++</li>
+</ul>
+<blockquote>
+<p>在作業系統方面請不用擔心，因為 OpenCV 是一個跨平台的電腦視覺函式庫</p>
+</blockquote>
+<p><br></p>
+<h2 id="臉部偵測-Face-Detection"><a href="#臉部偵測-Face-Detection" class="headerlink" title="臉部偵測 - Face Detection"></a>臉部偵測 - Face Detection</h2><p>來寫一個簡單的<strong><code>臉部偵測(Face Detection)</code></strong> 程式，使其將一張照片的人臉以及人眼圈出。</p>
+<h3 id="先建立檔案"><a href="#先建立檔案" class="headerlink" title="先建立檔案"></a>先建立檔案</h3><p>先依序建立以下幾個檔案：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkdir FaceID</span><br><span class="line"><span class="meta">$</span> cd FaceID</span><br><span class="line"><span class="meta">$</span> mkdir Picture Source</span><br><span class="line"><span class="meta">$</span> touch FaceDetection.cpp</span><br></pre></td></tr></table></figure>
+<p>此時 FaceID 資料夾內應該要有以下檔案</p>
+<p><img src="https://raw.githubusercontent.com/a1996850622/a1996850622.github.io/master/Document/FaceID/picture01.png" alt="picture01"></p>
+<p><br></p>
+<h3 id="下載人臉以及人眼分類器"><a href="#下載人臉以及人眼分類器" class="headerlink" title="下載人臉以及人眼分類器"></a>下載人臉以及人眼分類器</h3><p>取得 <code>Eyes Classifier</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wget https://raw.githubusercontent.com/a1996850622/FaceDetection/master/Source/haarcascade_eye_tree_eyeglasses.xml</span><br></pre></td></tr></table></figure>
+<p>取得 <code>Face Classifier</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wget https://raw.githubusercontent.com/a1996850622/FaceDetection/master/Source/haarcascade_frontalface_default.xml</span><br></pre></td></tr></table></figure>
+<p>接著將取得的兩個 XML 檔<strong><code>放進 Source 資料夾</code></strong>中</p>
+<blockquote>
+<p>XML 是可自行定義各標籤名稱的標記式語言，透過透過標記式語言，電腦之間便可以傳輸各種資訊。所以當我們 Load 上面兩個 XML 進程式之後，便可以使用他們的演算法來找出人臉及眼睛。</p>
+</blockquote>
+<p><br></p>
+<h3 id="開始撰寫臉部偵測"><a href="#開始撰寫臉部偵測" class="headerlink" title="開始撰寫臉部偵測"></a>開始撰寫臉部偵測</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** FaceDetection.cpp **/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Print error message **/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PANIC</span><span class="params">(<span class="keyword">char</span> *msg)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PANIC(msg)&#123;perror(msg); exit(-1);&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Function for face detection **/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DetectAndDraw</span><span class="params">(Mat frame)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Global variables **/</span></span><br><span class="line">String face_cascade_name = <span class="string">"Source/haarcascade_frontalface_default.xml"</span>;</span><br><span class="line">String eyes_cascade_name = <span class="string">"Source/haarcascade_eye_tree_eyeglasses.xml"</span>;</span><br><span class="line">CascadeClassifier face_cascade; <span class="comment">// Declare the face classifier</span></span><br><span class="line">CascadeClassifier eyes_cascade; <span class="comment">// Declare the eyes classifier</span></span><br><span class="line">String window_name = <span class="string">"Face detection"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">	<span class="comment">/* Open the web camera */</span></span><br><span class="line">	VideoCapture capture = VideoCapture(<span class="number">0</span>);</span><br><span class="line">	Mat frame, image;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/** Load cascade classifiers **/</span></span><br><span class="line">	<span class="keyword">if</span>(!face_cascade.load(face_cascade_name))</span><br><span class="line">		PANIC(<span class="string">"Error loading face cascade"</span>);</span><br><span class="line">	<span class="keyword">if</span>(!eyes_cascade.load(eyes_cascade_name))</span><br><span class="line">		PANIC(<span class="string">"Error loading eyes cascade"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/** After the camera is opened **/</span></span><br><span class="line">	<span class="keyword">if</span>(capture.isOpened())&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Face Detection Started..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span>(;;)&#123;</span><br><span class="line">			<span class="comment">/* Get image from camera */</span></span><br><span class="line">			capture&gt;&gt;frame; 			</span><br><span class="line">			<span class="keyword">if</span>(frame.empty())</span><br><span class="line">				PANIC(<span class="string">"Error capture frame"</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">/* Start the face detection function */</span></span><br><span class="line">			DetectAndDraw(frame);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">/** If you press ESC, q, or Q , the process will end **/</span></span><br><span class="line">			<span class="keyword">char</span> ch = (<span class="keyword">char</span>)waitKey(<span class="number">10</span>);</span><br><span class="line">			<span class="keyword">if</span>(ch==<span class="number">27</span> || ch==<span class="string">'q'</span> || ch==<span class="string">'Q'</span>)</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		PANIC(<span class="string">"Error open camera"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DetectAndDraw</span><span class="params">(Mat frame)</span></span>&#123;</span><br><span class="line">    <span class="comment">/* Declare vector for faces and eyes */</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Rect&gt; faces, eyes;</span><br><span class="line">    Mat frame_gray, frame_resize;</span><br><span class="line">    <span class="keyword">int</span> radius;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* Convert to gray scale */</span></span><br><span class="line">    cvtColor(frame, frame_gray, COLOR_BGR2GRAY);</span><br><span class="line">    <span class="comment">//imshow("grayscale", frame_gray);</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* Resize the grayscale Image */</span></span><br><span class="line">    <span class="comment">//resize(frame_gray, frame_resize, Size(), 1, 1, INTER_LINEAR);</span></span><br><span class="line">    <span class="comment">//imshow("resize", frame_resize);</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* Histogram equalization */</span></span><br><span class="line">    equalizeHist(frame_gray, frame_gray);</span><br><span class="line">    <span class="comment">//imshow("equalize", frame_gray);</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* Detect faces of different sizes using cascade classifier */</span></span><br><span class="line">    face_cascade.detectMultiScale(frame_gray, faces, <span class="number">1.1</span>, <span class="number">5</span>, CV_HAAR_SCALE_IMAGE, Size(<span class="number">30</span>, <span class="number">30</span>));</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/** Draw circles around the faces **/</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; faces.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Point center;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">/* Draw rectangular on face */</span></span><br><span class="line">        rectangle(frame, faces[i], Scalar(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">3</span>, <span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        Mat faceROI = frame_gray(faces[i]);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Detection of eyes int the input image */</span></span><br><span class="line">        eyes_cascade.detectMultiScale(faceROI, eyes, <span class="number">1.1</span>, <span class="number">1</span>, CV_HAAR_SCALE_IMAGE, Size(<span class="number">3</span>, <span class="number">3</span>)); </span><br><span class="line">         </span><br><span class="line">        <span class="comment">/** Draw circles around eyes **/</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; eyes.size(); j++) </span><br><span class="line">        &#123;</span><br><span class="line">            center.x = cvRound((faces[i].x + eyes[j].x + eyes[j].width*<span class="number">0.5</span>));</span><br><span class="line">            center.y = cvRound((faces[i].y + eyes[j].y + eyes[j].height*<span class="number">0.5</span>));</span><br><span class="line">            radius = cvRound((eyes[j].width + eyes[j].height)*<span class="number">0.25</span>);</span><br><span class="line">            circle(frame, center, radius, Scalar(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">3</span>, <span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Show Processed Image with detected faces</span></span><br><span class="line">    imshow( <span class="string">"Face Detection"</span>, frame);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="解釋臉部偵測程式"><a href="#解釋臉部偵測程式" class="headerlink" title="解釋臉部偵測程式"></a>解釋臉部偵測程式</h3><p>其實過程很簡單，大致是以下幾個步驟：</p>
+<ul>
+<li>將人臉及人眼分類器演算法的 XML 檔 Load 進來 (程式第<strong>28~32</strong>行)</li>
+<li>使用 <strong><code>cvtColor()</code></strong> 將影像轉成<strong><code>灰階(GaryScale)</code></strong>，目的是減少運算量 (程式第<strong>66</strong>行)</li>
+<li>使用 <strong><code>resize()</code></strong> 更改影像大小比率，視情況而定，在這裡我們先不使用 (程式第<strong>70</strong>行)</li>
+<li>使用 <strong><code>equalizeHist()</code></strong> 將影像做直方圖等化，以增強對比度 (程式第<strong>74</strong>行)</li>
+<li>運用 XML 內的分類演算法來偵測出人臉和人眼 (程式第<strong>78</strong>行和<strong>91</strong>行)</li>
+<li>分別圈出人臉以及人眼 (程式第<strong>80~101</strong>行)</li>
+<li>完成臉部偵測</li>
+</ul>
+<p><br></p>
+<h3 id="執行結果"><a href="#執行結果" class="headerlink" title="執行結果"></a>執行結果</h3><p><img src="https://raw.githubusercontent.com/a1996850622/a1996850622.github.io/master/Document/FaceID/picture02.png" alt="picture02"></p>
+<p><br></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><p><a href="http://www.geeksforgeeks.org/opencv-c-program-face-detection/" target="_blank" rel="noopener">OpenCV C++ Program for Face Detection</a></p>
+</li>
+<li><p><a href="http://monkeycoding.com/?page_id=12" target="_blank" rel="noopener">阿洲的程式教學 - OpenCV</a></p>
+</li>
+</ul>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/20/face-detection/" data-id="cjc9h8we50001jiipmm93z77o" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV-C-C/">OpenCV C/C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/01/107-institute-apply-sharing/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          107年研究所甄試心得
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/04/linux-kernel-module/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">寫一個簡單的 Linux Kernel Module</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Experience/">Experience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/">OpenCV</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Experience/">Experience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV-C-C/">OpenCV C/C++</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Experience/" style="font-size: 10px;">Experience</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OpenCV-C-C/" style="font-size: 20px;">OpenCV C/C++</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/08/photogragh/">[OpenCV] 實作拍照程式</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/25/install-opencv/">在 Ubuntu 安裝 OpenCV 與建置 C++ 編譯環境</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/01/107-institute-apply-sharing/">107年研究所甄試心得</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/20/face-detection/">[OpenCV] 臉部偵測 (Face Detection)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/04/linux-kernel-module/">寫一個簡單的 Linux Kernel Module</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

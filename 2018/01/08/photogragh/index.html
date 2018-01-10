@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[OpenCV] 實作拍照程式 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="先確認電腦有攝影機務必確認你的電腦有內建攝影機或是外接攝影機 使用前也請確認沒有其他程式或軟體正在使用你的攝影機  打開電腦的攝影機在 OpenCV 中想要打開攝影機只需要1 行程式就可以達成，如下： 12/* 數字 0 代表的是你的攝影機編號 */VideoCapture capture = VideoCapture(0);  如果你的電腦有兩部攝影機，則其編號分別為 0、1  建議多做個錯誤判">
+<meta name="keywords" content="OpenCV C&#x2F;C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[OpenCV] 實作拍照程式">
+<meta property="og:url" content="http://yoursite.com/2018/01/08/photogragh/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="先確認電腦有攝影機務必確認你的電腦有內建攝影機或是外接攝影機 使用前也請確認沒有其他程式或軟體正在使用你的攝影機  打開電腦的攝影機在 OpenCV 中想要打開攝影機只需要1 行程式就可以達成，如下： 12/* 數字 0 代表的是你的攝影機編號 */VideoCapture capture = VideoCapture(0);  如果你的電腦有兩部攝影機，則其編號分別為 0、1  建議多做個錯誤判">
+<meta property="og:updated_time" content="2018-01-10T13:30:32.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[OpenCV] 實作拍照程式">
+<meta name="twitter:description" content="先確認電腦有攝影機務必確認你的電腦有內建攝影機或是外接攝影機 使用前也請確認沒有其他程式或軟體正在使用你的攝影機  打開電腦的攝影機在 OpenCV 中想要打開攝影機只需要1 行程式就可以達成，如下： 12/* 數字 0 代表的是你的攝影機編號 */VideoCapture capture = VideoCapture(0);  如果你的電腦有兩部攝影機，則其編號分別為 0、1  建議多做個錯誤判">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-photogragh" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/08/photogragh/" class="article-date">
+  <time datetime="2018-01-07T16:00:00.000Z" itemprop="datePublished">2018-01-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenCV/">OpenCV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [OpenCV] 實作拍照程式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先確認電腦有攝影機"><a href="#先確認電腦有攝影機" class="headerlink" title="先確認電腦有攝影機"></a>先確認電腦有攝影機</h3><p>務必確認你的電腦有內建攝影機或是外接攝影機</p>
+<p>使用前也請確認沒有其他程式或軟體正在使用你的攝影機</p>
+<p><br></p>
+<h3 id="打開電腦的攝影機"><a href="#打開電腦的攝影機" class="headerlink" title="打開電腦的攝影機"></a>打開電腦的攝影機</h3><p>在 OpenCV 中想要打開攝影機只需要<code>1 行程式</code>就可以達成，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 數字 0 代表的是你的攝影機編號 */</span></span><br><span class="line">VideoCapture capture = VideoCapture(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你的電腦有兩部攝影機，則其編號分別為 0、1</p>
+</blockquote>
+<p>建議多做個<code>錯誤判斷</code>，這樣編譯程式的時候就可以立即知道哪裡出錯</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 假使攝影機開啟失敗則印出錯誤訊息 */</span></span><br><span class="line"><span class="keyword">if</span>(!capture.isOpened())&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Error open camera\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最後即可取得影像</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mat frame;</span><br><span class="line"><span class="comment">/* 把攝影機獲得的影像放進 frame 中 */</span></span><br><span class="line">capture &gt;&gt; frame;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="完整拍照程式碼"><a href="#完整拍照程式碼" class="headerlink" title="完整拍照程式碼"></a>完整拍照程式碼</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"opencv2/opencv.hpp"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 印出錯誤訊息 **/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PANIC</span><span class="params">(<span class="keyword">char</span> *msg)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PANIC(msg)&#123;perror(msg); exit(-1);&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">        <span class="comment">/* 開啟攝影機 */</span></span><br><span class="line">	VideoCapture capture = VideoCapture(<span class="number">0</span>);</span><br><span class="line">	Mat frame;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 確認攝影機是否開啟 */</span></span><br><span class="line">	<span class="keyword">if</span>(!capture.isOpened())</span><br><span class="line">	    PANIC(<span class="string">"Error open camera"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Press p to take a picture"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">char</span> key = waitKey(<span class="number">100</span>);</span><br><span class="line">             </span><br><span class="line">                <span class="comment">/* 將攝影機所取得的影像放進 frame */</span></span><br><span class="line">		capture &gt;&gt; frame;</span><br><span class="line"></span><br><span class="line">                <span class="comment">/* 檢查影像是否正確放入 frame 中 */</span></span><br><span class="line">		<span class="keyword">if</span>(frame.empty())</span><br><span class="line">                    PANIC(<span class="string">"Error capture frame"</span>);</span><br><span class="line"></span><br><span class="line">		String filename = format(<span class="string">"picture%d.jpg"</span>, i);</span><br><span class="line"></span><br><span class="line">		<span class="comment">/** 按下 p 鍵時則將 frame 存檔(拍照) **/</span></span><br><span class="line">		<span class="keyword">switch</span>(key)&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'p'</span>:</span><br><span class="line">				i++;</span><br><span class="line">                               <span class="comment">/* 將 frame 寫出成檔案 */</span></span><br><span class="line">				imwrite(filename, frame);</span><br><span class="line">				imshow(<span class="string">"photo"</span>, frame);</span><br><span class="line">				waitKey(<span class="number">500</span>);</span><br><span class="line">				destroyWindow(<span class="string">"photo"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		imshow(<span class="string">"frame"</span>, frame);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>編譯並執行程式後，你就可以<code>按下 p 鍵</code>來拍照囉</p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/08/photogragh/" data-id="cjc9h8wen0006jiipzfs0l0qm" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV-C-C/">OpenCV C/C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/25/install-opencv/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">在 Ubuntu 安裝 OpenCV 與建置 C++ 編譯環境</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Experience/">Experience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/">OpenCV</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Experience/">Experience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV-C-C/">OpenCV C/C++</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Experience/" style="font-size: 10px;">Experience</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OpenCV-C-C/" style="font-size: 20px;">OpenCV C/C++</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/08/photogragh/">[OpenCV] 實作拍照程式</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/25/install-opencv/">在 Ubuntu 安裝 OpenCV 與建置 C++ 編譯環境</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/01/107-institute-apply-sharing/">107年研究所甄試心得</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/20/face-detection/">[OpenCV] 臉部偵測 (Face Detection)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/04/linux-kernel-module/">寫一個簡單的 Linux Kernel Module</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

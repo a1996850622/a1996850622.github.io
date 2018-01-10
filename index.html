@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,12 +61,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-photogragh" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/01/11/test/" class="article-date">
-  <time datetime="2018-01-10T19:44:14.000Z" itemprop="datePublished">2018-01-11</time>
+    <a href="/2018/01/08/photogragh/" class="article-date">
+  <time datetime="2018-01-07T16:00:00.000Z" itemprop="datePublished">2018-01-08</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenCV/">OpenCV</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +79,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/11/test/">test</a>
+      <a class="article-title" href="/2018/01/08/photogragh/">[OpenCV] 實作拍照程式</a>
     </h1>
   
 
@@ -83,14 +87,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>test test</p>
+        <h3 id="先確認電腦有攝影機"><a href="#先確認電腦有攝影機" class="headerlink" title="先確認電腦有攝影機"></a>先確認電腦有攝影機</h3><p>務必確認你的電腦有內建攝影機或是外接攝影機</p>
+<p>使用前也請確認沒有其他程式或軟體正在使用你的攝影機</p>
+<p><br></p>
+<h3 id="打開電腦的攝影機"><a href="#打開電腦的攝影機" class="headerlink" title="打開電腦的攝影機"></a>打開電腦的攝影機</h3><p>在 OpenCV 中想要打開攝影機只需要<code>1 行程式</code>就可以達成，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 數字 0 代表的是你的攝影機編號 */</span></span><br><span class="line">VideoCapture capture = VideoCapture(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你的電腦有兩部攝影機，則其編號分別為 0、1</p>
+</blockquote>
+<p>建議多做個<code>錯誤判斷</code>，這樣編譯程式的時候就可以立即知道哪裡出錯</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 假使攝影機開啟失敗則印出錯誤訊息 */</span></span><br><span class="line"><span class="keyword">if</span>(!capture.isOpened())&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Error open camera\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最後即可取得影像</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mat frame;</span><br><span class="line"><span class="comment">/* 把攝影機獲得的影像放進 frame 中 */</span></span><br><span class="line">capture &gt;&gt; frame;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="完整拍照程式碼"><a href="#完整拍照程式碼" class="headerlink" title="完整拍照程式碼"></a>完整拍照程式碼</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"opencv2/opencv.hpp"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 印出錯誤訊息 **/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PANIC</span><span class="params">(<span class="keyword">char</span> *msg)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PANIC(msg)&#123;perror(msg); exit(-1);&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">        <span class="comment">/* 開啟攝影機 */</span></span><br><span class="line">	VideoCapture capture = VideoCapture(<span class="number">0</span>);</span><br><span class="line">	Mat frame;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* 確認攝影機是否開啟 */</span></span><br><span class="line">	<span class="keyword">if</span>(!capture.isOpened())</span><br><span class="line">	    PANIC(<span class="string">"Error open camera"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Press p to take a picture"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">char</span> key = waitKey(<span class="number">100</span>);</span><br><span class="line">             </span><br><span class="line">                <span class="comment">/* 將攝影機所取得的影像放進 frame */</span></span><br><span class="line">		capture &gt;&gt; frame;</span><br><span class="line"></span><br><span class="line">                <span class="comment">/* 檢查影像是否正確放入 frame 中 */</span></span><br><span class="line">		<span class="keyword">if</span>(frame.empty())</span><br><span class="line">                    PANIC(<span class="string">"Error capture frame"</span>);</span><br><span class="line"></span><br><span class="line">		String filename = format(<span class="string">"picture%d.jpg"</span>, i);</span><br><span class="line"></span><br><span class="line">		<span class="comment">/** 按下 p 鍵時則將 frame 存檔(拍照) **/</span></span><br><span class="line">		<span class="keyword">switch</span>(key)&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'p'</span>:</span><br><span class="line">				i++;</span><br><span class="line">                               <span class="comment">/* 將 frame 寫出成檔案 */</span></span><br><span class="line">				imwrite(filename, frame);</span><br><span class="line">				imshow(<span class="string">"photo"</span>, frame);</span><br><span class="line">				waitKey(<span class="number">500</span>);</span><br><span class="line">				destroyWindow(<span class="string">"photo"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		imshow(<span class="string">"frame"</span>, frame);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>編譯並執行程式後，你就可以<code>按下 p 鍵</code>來拍照囉</p>
+<hr>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/11/test/" data-id="cjc9h537c0000eqipax5lojcz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/08/photogragh/" data-id="cjc9h8wen0006jiipzfs0l0qm" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV-C-C/">OpenCV C/C++</a></li></ul>
+
     </footer>
   </div>
   
@@ -98,12 +119,16 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-install-opencv" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/01/11/hello-world/" class="article-date">
-  <time datetime="2018-01-10T19:41:33.129Z" itemprop="datePublished">2018-01-11</time>
+    <a href="/2017/12/25/install-opencv/" class="article-date">
+  <time datetime="2017-12-24T16:00:00.000Z" itemprop="datePublished">2017-12-25</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenCV/">OpenCV</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -112,7 +137,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/11/hello-world/">Hello World</a>
+      <a class="article-title" href="/2017/12/25/install-opencv/">在 Ubuntu 安裝 OpenCV 與建置 C++ 編譯環境</a>
     </h1>
   
 
@@ -120,22 +145,290 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>跟著以下步驟, 將指令複製貼上執行, 就可以在你的 Ubuntu 上建置編譯 OpenCV C/C++ 的環境</p>
+<h3 id="更新系統"><a href="#更新系統" class="headerlink" title="更新系統"></a>更新系統</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="下載-OpenCV-的相依套件"><a href="#下載-OpenCV-的相依套件" class="headerlink" title="下載 OpenCV 的相依套件"></a>下載 OpenCV 的相依套件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</span><br><span class="line"></span><br><span class="line">sudo apt-get install python3.5-dev python3-numpy libtbb2 libtbb-dev</span><br><span class="line"></span><br><span class="line">sudo apt-get install libjpeg-dev libpng-dev libtiff5-dev libjasper-dev libdc1394-22-dev libeigen3-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev sphinx-common libtbb-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libopenexr-dev libgstreamer-plugins-base1.0-dev libavutil-dev libavfilter-dev libavresample-dev</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="下載-OpenCV"><a href="#下載-OpenCV" class="headerlink" title="下載 OpenCV"></a>下載 OpenCV</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /opt</span><br><span class="line"></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Itseez/opencv.git</span><br><span class="line"></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Itseez/opencv_contrib.git</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="編譯與安裝-OpenCV"><a href="#編譯與安裝-OpenCV" class="headerlink" title="編譯與安裝 OpenCV"></a>編譯與安裝 OpenCV</h3><p>因為要編譯 OpenCV 以及建置環境, 所以這個環節需要一點時間呦</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"></span><br><span class="line">mkdir release</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> release</span><br><span class="line"></span><br><span class="line">cmake -D BUILD_TIFF=ON -D WITH_CUDA=OFF -D ENABLE_AVX=OFF -D WITH_OPENGL=OFF -D WITH_OPENCL=OFF -D WITH_IPP=OFF -D WITH_TBB=ON -D BUILD_TBB=ON -D WITH_EIGEN=OFF -D WITH_V4L=OFF -D WITH_VTK=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span> -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib/modules /opt/opencv/</span><br><span class="line"></span><br><span class="line">make -j4</span><br><span class="line"></span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line">ldconfig</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ~</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="查看你的-OpenCV-版本"><a href="#查看你的-OpenCV-版本" class="headerlink" title="查看你的 OpenCV 版本"></a>查看你的 OpenCV 版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg-config --modversion opencv</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="寫個簡單的程式來編譯看看"><a href="#寫個簡單的程式來編譯看看" class="headerlink" title="寫個簡單的程式來編譯看看"></a>寫個簡單的程式來編譯看看</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* test.cpp */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"opencv2/opencv.hpp"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    Mat srcImg = imread(<span class="string">"picture.jpg"</span>);</span><br><span class="line">    </span><br><span class="line">    imshow(<span class="string">"srcImg"</span>, srcImg);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用以下指令將 test.cpp 編譯成可執行檔<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ test.cpp -o output `pkg-config --cflags --libs opencv`</span><br></pre></td></tr></table></figure></p>
+<p>執行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./output</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/" target="_blank" rel="noopener">How to Install OpenCV in Ubuntu 16.04 LTS for C / C++</a></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/11/hello-world/" data-id="cjc9h537l0001eqip8l7cmiv7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/25/install-opencv/" data-id="cjc9h8weg0004jiip169x2uzq" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV-C-C/">OpenCV C/C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-107-institute-apply-sharing" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/01/107-institute-apply-sharing/" class="article-date">
+  <time datetime="2017-11-30T16:00:00.000Z" itemprop="datePublished">2017-12-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Experience/">Experience</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/01/107-institute-apply-sharing/">107年研究所甄試心得</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>稍微分享一下我的 107 年研究所推甄的成果和心得，希望學弟妹們看了可以有個依據，讓你們知道大概自己的成績可以推到哪一間研究所。</p>
+<p><br></p>
+<h3 id="先說明一下我的推甄資料"><a href="#先說明一下我的推甄資料" class="headerlink" title="先說明一下我的推甄資料"></a>先說明一下我的推甄資料</h3><ul>
+<li><strong>就讀學校：</strong> <code>逢甲大學</code></li>
+<li><strong>科系：</strong> <code>通訊工程學系</code></li>
+<li><strong>在校成績：</strong> <code>班排名(5/53)</code>、<code>系排名(10/106)</code></li>
+<li><strong>校外成果：</strong> <code>IMP2017</code>論文接受並去研討會發表</li>
+</ul>
+<p><br></p>
+<h3 id="推甄的校系"><a href="#推甄的校系" class="headerlink" title="推甄的校系"></a>推甄的校系</h3><ul>
+<li>成功大學電腦與通訊工程所甲組 (初審未通過)</li>
+<li>成功大學資訊工程所 (初審未通過)</li>
+<li>清華大學通訊所乙組 (初審未通過)</li>
+<li>中央大學資訊工程所 (<code>初審通過</code>)</li>
+<li>中山大學電機工程所丙組 (<code>初審通過</code>)</li>
+<li>逢甲大學通訊工程所 (<code>直接錄取</code>)</li>
+</ul>
+<p><br></p>
+<h3 id="最後結果"><a href="#最後結果" class="headerlink" title="最後結果"></a>最後結果</h3><ul>
+<li>中央大學資訊工程所 (果斷放棄不去面試)</li>
+<li>中山大學電機工程所丙組 (<code>正取</code>)</li>
+<li>逢甲大學通訊工程所 (<code>正取1</code>)</li>
+</ul>
+<p><br></p>
+<h3 id="中山大學-電機所-丙組-面試心得"><a href="#中山大學-電機所-丙組-面試心得" class="headerlink" title="中山大學 電機所 丙組 面試心得"></a>中山大學 電機所 丙組 面試心得</h3><ul>
+<li><p><strong>穿著：</strong> 當天幾乎男生都穿西裝、女生都穿套裝，所以建議至少男生也要穿個<strong><code>白襯衫+西裝褲</code></strong>，才不會顯得太過突兀，西裝外套的話就自己斟酌吧~可穿可不穿。</p>
+</li>
+<li><p><strong>面試方式：</strong> 一次進去都是 4 個人，而裡面有 4 個教授，每個教授都會單獨面試你 5 分鐘，所以總共<code>面試 20 分鐘</code></p>
+</li>
+<li><p><strong>面試問題如下</strong></p>
+<ul>
+<li><p><strong>第一位教授：</strong> 主要都在詢問我的<code>專題內容</code>，還有我之後想要<code>研究的方向</code></p>
+</li>
+<li><p><strong>第二位教授：</strong> 5 分鐘都在問我的<code>專題內容</code></p>
+</li>
+<li><p><strong>第三位教授：</strong> 問我什麼是<code>線性獨立</code>以及<code>機率獨立</code>(我都沒回答出來~冏)，因為我的簡歷上有寫我會影像處理，所以還有問我<code>影像處理</code>的相關問題，例如像是物件追蹤、人臉辨識要用什麼演算法之類的</p>
+</li>
+<li><p><strong>第四位教授：</strong> 跟我哈拉了 5 分鐘</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h3 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h3><p>總結來說，這次推甄的非常慘，我建議讀通訊的人不要輕易跨到資工領域，除非你在大學時期都有在修資訊系的課程，或者你在校外有很多資訊類的優異表現，否則推上的機率真的非常的低</p>
+<p>一些基本的數學觀念要知道，例如線性獨立、機率獨立等等的。悲慘的是我讀了 3 年的書卻連這種觀念都不會，確實有點糟糕 ; 此外，自己的<code>專題一定要完全清楚</code>，因為問專題的時間佔了大多數</p>
+<p>我面試當天很多人都有自己準備書面資料要給教授，但是一個教授也才 5 分鐘，根本不可能會看，所以建議大家把<code>重要資料整理成一張 A4 的簡歷</code>就好</p>
+<p>在我面試完之後才去查了中山電機丙組的評價，發現非常的慘烈，我在放榜之後也有去中山找教授，如果真的想念電機丙的話，請你要做好至少 3 年的準備XD，所以我打算要延畢重考了QQ</p>
+<p><strong>如果有其他問題都可以來<a href="https://www.facebook.com/profile.php?id=100000292471918" target="_blank" rel="noopener"> 我的 Facebook</a> 私訊我，想要參考我的備審也可以來密我啦XD</strong></p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/01/107-institute-apply-sharing/" data-id="cjc9h8wdw0000jiip6v2ba6s2" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Experience/">Experience</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-face-detection" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/20/face-detection/" class="article-date">
+  <time datetime="2017-11-19T19:20:51.000Z" itemprop="datePublished">2017-11-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenCV/">OpenCV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/20/face-detection/">[OpenCV] 臉部偵測 (Face Detection)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="我的實作環境"><a href="#我的實作環境" class="headerlink" title="我的實作環境"></a>我的實作環境</h2><ul>
+<li><strong>作業系統：</strong> Ubuntu 17.04</li>
+<li><strong>OpenCV 函式庫版本：</strong> <code>Version 3.3</code></li>
+<li><strong>程式語言：</strong> C++</li>
+</ul>
+<blockquote>
+<p>在作業系統方面請不用擔心，因為 OpenCV 是一個跨平台的電腦視覺函式庫</p>
+</blockquote>
+<p><br></p>
+<h2 id="臉部偵測-Face-Detection"><a href="#臉部偵測-Face-Detection" class="headerlink" title="臉部偵測 - Face Detection"></a>臉部偵測 - Face Detection</h2><p>來寫一個簡單的<strong><code>臉部偵測(Face Detection)</code></strong> 程式，使其將一張照片的人臉以及人眼圈出。</p>
+<h3 id="先建立檔案"><a href="#先建立檔案" class="headerlink" title="先建立檔案"></a>先建立檔案</h3><p>先依序建立以下幾個檔案：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkdir FaceID</span><br><span class="line"><span class="meta">$</span> cd FaceID</span><br><span class="line"><span class="meta">$</span> mkdir Picture Source</span><br><span class="line"><span class="meta">$</span> touch FaceDetection.cpp</span><br></pre></td></tr></table></figure>
+<p>此時 FaceID 資料夾內應該要有以下檔案</p>
+<p><img src="https://raw.githubusercontent.com/a1996850622/a1996850622.github.io/master/Document/FaceID/picture01.png" alt="picture01"></p>
+<p><br></p>
+<h3 id="下載人臉以及人眼分類器"><a href="#下載人臉以及人眼分類器" class="headerlink" title="下載人臉以及人眼分類器"></a>下載人臉以及人眼分類器</h3><p>取得 <code>Eyes Classifier</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wget https://raw.githubusercontent.com/a1996850622/FaceDetection/master/Source/haarcascade_eye_tree_eyeglasses.xml</span><br></pre></td></tr></table></figure>
+<p>取得 <code>Face Classifier</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wget https://raw.githubusercontent.com/a1996850622/FaceDetection/master/Source/haarcascade_frontalface_default.xml</span><br></pre></td></tr></table></figure>
+<p>接著將取得的兩個 XML 檔<strong><code>放進 Source 資料夾</code></strong>中</p>
+<blockquote>
+<p>XML 是可自行定義各標籤名稱的標記式語言，透過透過標記式語言，電腦之間便可以傳輸各種資訊。所以當我們 Load 上面兩個 XML 進程式之後，便可以使用他們的演算法來找出人臉及眼睛。</p>
+</blockquote>
+<p><br></p>
+<h3 id="開始撰寫臉部偵測"><a href="#開始撰寫臉部偵測" class="headerlink" title="開始撰寫臉部偵測"></a>開始撰寫臉部偵測</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** FaceDetection.cpp **/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Print error message **/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PANIC</span><span class="params">(<span class="keyword">char</span> *msg)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PANIC(msg)&#123;perror(msg); exit(-1);&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Function for face detection **/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DetectAndDraw</span><span class="params">(Mat frame)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Global variables **/</span></span><br><span class="line">String face_cascade_name = <span class="string">"Source/haarcascade_frontalface_default.xml"</span>;</span><br><span class="line">String eyes_cascade_name = <span class="string">"Source/haarcascade_eye_tree_eyeglasses.xml"</span>;</span><br><span class="line">CascadeClassifier face_cascade; <span class="comment">// Declare the face classifier</span></span><br><span class="line">CascadeClassifier eyes_cascade; <span class="comment">// Declare the eyes classifier</span></span><br><span class="line">String window_name = <span class="string">"Face detection"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">	<span class="comment">/* Open the web camera */</span></span><br><span class="line">	VideoCapture capture = VideoCapture(<span class="number">0</span>);</span><br><span class="line">	Mat frame, image;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/** Load cascade classifiers **/</span></span><br><span class="line">	<span class="keyword">if</span>(!face_cascade.load(face_cascade_name))</span><br><span class="line">		PANIC(<span class="string">"Error loading face cascade"</span>);</span><br><span class="line">	<span class="keyword">if</span>(!eyes_cascade.load(eyes_cascade_name))</span><br><span class="line">		PANIC(<span class="string">"Error loading eyes cascade"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/** After the camera is opened **/</span></span><br><span class="line">	<span class="keyword">if</span>(capture.isOpened())&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"Face Detection Started..."</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span>(;;)&#123;</span><br><span class="line">			<span class="comment">/* Get image from camera */</span></span><br><span class="line">			capture&gt;&gt;frame; 			</span><br><span class="line">			<span class="keyword">if</span>(frame.empty())</span><br><span class="line">				PANIC(<span class="string">"Error capture frame"</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">/* Start the face detection function */</span></span><br><span class="line">			DetectAndDraw(frame);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">/** If you press ESC, q, or Q , the process will end **/</span></span><br><span class="line">			<span class="keyword">char</span> ch = (<span class="keyword">char</span>)waitKey(<span class="number">10</span>);</span><br><span class="line">			<span class="keyword">if</span>(ch==<span class="number">27</span> || ch==<span class="string">'q'</span> || ch==<span class="string">'Q'</span>)</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		PANIC(<span class="string">"Error open camera"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DetectAndDraw</span><span class="params">(Mat frame)</span></span>&#123;</span><br><span class="line">    <span class="comment">/* Declare vector for faces and eyes */</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Rect&gt; faces, eyes;</span><br><span class="line">    Mat frame_gray, frame_resize;</span><br><span class="line">    <span class="keyword">int</span> radius;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* Convert to gray scale */</span></span><br><span class="line">    cvtColor(frame, frame_gray, COLOR_BGR2GRAY);</span><br><span class="line">    <span class="comment">//imshow("grayscale", frame_gray);</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* Resize the grayscale Image */</span></span><br><span class="line">    <span class="comment">//resize(frame_gray, frame_resize, Size(), 1, 1, INTER_LINEAR);</span></span><br><span class="line">    <span class="comment">//imshow("resize", frame_resize);</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* Histogram equalization */</span></span><br><span class="line">    equalizeHist(frame_gray, frame_gray);</span><br><span class="line">    <span class="comment">//imshow("equalize", frame_gray);</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* Detect faces of different sizes using cascade classifier */</span></span><br><span class="line">    face_cascade.detectMultiScale(frame_gray, faces, <span class="number">1.1</span>, <span class="number">5</span>, CV_HAAR_SCALE_IMAGE, Size(<span class="number">30</span>, <span class="number">30</span>));</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/** Draw circles around the faces **/</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; faces.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Point center;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">/* Draw rectangular on face */</span></span><br><span class="line">        rectangle(frame, faces[i], Scalar(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">3</span>, <span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        Mat faceROI = frame_gray(faces[i]);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Detection of eyes int the input image */</span></span><br><span class="line">        eyes_cascade.detectMultiScale(faceROI, eyes, <span class="number">1.1</span>, <span class="number">1</span>, CV_HAAR_SCALE_IMAGE, Size(<span class="number">3</span>, <span class="number">3</span>)); </span><br><span class="line">         </span><br><span class="line">        <span class="comment">/** Draw circles around eyes **/</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; eyes.size(); j++) </span><br><span class="line">        &#123;</span><br><span class="line">            center.x = cvRound((faces[i].x + eyes[j].x + eyes[j].width*<span class="number">0.5</span>));</span><br><span class="line">            center.y = cvRound((faces[i].y + eyes[j].y + eyes[j].height*<span class="number">0.5</span>));</span><br><span class="line">            radius = cvRound((eyes[j].width + eyes[j].height)*<span class="number">0.25</span>);</span><br><span class="line">            circle(frame, center, radius, Scalar(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">3</span>, <span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Show Processed Image with detected faces</span></span><br><span class="line">    imshow( <span class="string">"Face Detection"</span>, frame);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="解釋臉部偵測程式"><a href="#解釋臉部偵測程式" class="headerlink" title="解釋臉部偵測程式"></a>解釋臉部偵測程式</h3><p>其實過程很簡單，大致是以下幾個步驟：</p>
+<ul>
+<li>將人臉及人眼分類器演算法的 XML 檔 Load 進來 (程式第<strong>28~32</strong>行)</li>
+<li>使用 <strong><code>cvtColor()</code></strong> 將影像轉成<strong><code>灰階(GaryScale)</code></strong>，目的是減少運算量 (程式第<strong>66</strong>行)</li>
+<li>使用 <strong><code>resize()</code></strong> 更改影像大小比率，視情況而定，在這裡我們先不使用 (程式第<strong>70</strong>行)</li>
+<li>使用 <strong><code>equalizeHist()</code></strong> 將影像做直方圖等化，以增強對比度 (程式第<strong>74</strong>行)</li>
+<li>運用 XML 內的分類演算法來偵測出人臉和人眼 (程式第<strong>78</strong>行和<strong>91</strong>行)</li>
+<li>分別圈出人臉以及人眼 (程式第<strong>80~101</strong>行)</li>
+<li>完成臉部偵測</li>
+</ul>
+<p><br></p>
+<h3 id="執行結果"><a href="#執行結果" class="headerlink" title="執行結果"></a>執行結果</h3><p><img src="https://raw.githubusercontent.com/a1996850622/a1996850622.github.io/master/Document/FaceID/picture02.png" alt="picture02"></p>
+<p><br></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><p><a href="http://www.geeksforgeeks.org/opencv-c-program-face-detection/" target="_blank" rel="noopener">OpenCV C++ Program for Face Detection</a></p>
+</li>
+<li><p><a href="http://monkeycoding.com/?page_id=12" target="_blank" rel="noopener">阿洲的程式教學 - OpenCV</a></p>
+</li>
+</ul>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/20/face-detection/" data-id="cjc9h8we50001jiipmm93z77o" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV-C-C/">OpenCV C/C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux-kernel-module" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/04/linux-kernel-module/" class="article-date">
+  <time datetime="2017-05-04T00:00:00.000Z" itemprop="datePublished">2017-05-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/04/linux-kernel-module/">寫一個簡單的 Linux Kernel Module</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="創建資料夾並寫-kernel-module"><a href="#創建資料夾並寫-kernel-module" class="headerlink" title="創建資料夾並寫 kernel module"></a>創建資料夾並寫 kernel module</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir helloworld</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> helloworld</span><br><span class="line"></span><br><span class="line">vim hello.c</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>hello.c</code> 程式碼如下：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* hello.c */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/init.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/module.h&gt;</span></span></span><br><span class="line">  </span><br><span class="line">MODULE_DESCRIPTION(<span class="string">"Hello_world"</span>);</span><br><span class="line">MODULE_LICENSE(<span class="string">"GPL"</span>);</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hello_init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> printk(KERN_INFO <span class="string">"Hello world !\n"</span>);</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hello_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> printk(KERN_INFO <span class="string">"ByeBye !\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">module_init(hello_init);</span><br><span class="line"><span class="comment">//When u use insmod, it will enter hello_init function</span></span><br><span class="line"></span><br><span class="line">module_exit(hello_exit);</span><br><span class="line"><span class="comment">//When u use rmmod, it will enter hello_exit function</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h1 id="在同目錄下寫-Makefile"><a href="#在同目錄下寫-Makefile" class="headerlink" title="在同目錄下寫 Makefile"></a>在同目錄下寫 Makefile</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim Makefile</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Makefile</code> 的內容如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PWD := $(shell <span class="built_in">pwd</span>) </span><br><span class="line">KVERSION := $(shell uname -r)</span><br><span class="line">KERNEL_DIR = /usr/src/linux-headers-$(KVERSION)/</span><br><span class="line"> </span><br><span class="line">MODULE_NAME = hello</span><br><span class="line">obj-m := $(MODULE_NAME).o</span><br><span class="line"> </span><br><span class="line">all: </span><br><span class="line"> make -C $(KERNEL_DIR) M=$(PWD) modules</span><br><span class="line">clean: </span><br><span class="line"> make -C $(KERNEL_DIR) M=$(PWD) clean</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h1 id="使用-sudo-make-指令編譯"><a href="#使用-sudo-make-指令編譯" class="headerlink" title="使用 sudo make 指令編譯"></a>使用 sudo make 指令編譯</h1><blockquote>
+<p>將他編譯成 <code>.ko</code> 檔</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/a1996850622/mdsite_document/master/Linux_kernel_module/picture01.JPG" alt="picture01"></p>
+<p><br></p>
+<h1 id="使用-insmod-載入-module"><a href="#使用-insmod-載入-module" class="headerlink" title="使用 insmod 載入 module"></a>使用 insmod 載入 module</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo insmod hello.ko</span><br><span class="line"></span><br><span class="line"><span class="comment"># 載完後用 dmesg 來觀看 kernel 訊息</span></span><br><span class="line">dmesg</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/a1996850622/mdsite_document/master/Linux_kernel_module/picture02.JPG" alt="picture02"></p>
+<blockquote>
+<p>可以看到成功 print 出 hello world ! 字串</p>
+</blockquote>
+<p><br></p>
+<p>你也可以使用 <code>lsmod</code> 指令來列出目前在使用的 module</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grep "hello" 用來濾出我們的 hello module </span></span><br><span class="line">lsmod | grep <span class="string">"hello"</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/a1996850622/mdsite_document/master/Linux_kernel_module/picture03.JPG" alt="picture03"></p>
+<p><br></p>
+<p>最後想要移除掉模組的話 要使用 <code>rmmod</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo rmmod hello.ko</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再觀察一次 kernel 訊息</span></span><br><span class="line">dmesg</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/a1996850622/mdsite_document/master/Linux_kernel_module/picture04.JPG" alt="picture04"></p>
+<blockquote>
+<p>可以看到 print 出了 ByeBye ! 字串</p>
+</blockquote>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/04/linux-kernel-module/" data-id="cjc9h8wei0005jiipt9k73lq9" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
     </footer>
   </div>
   
@@ -150,18 +443,10 @@
           <aside id="sidebar">
   
     
-
-  
-    
-
-  
-    
-  
-    
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Experience/">Experience</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/">OpenCV</a></li></ul>
     </div>
   </div>
 
@@ -169,16 +454,57 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Experience/">Experience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV-C-C/">OpenCV C/C++</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Experience/" style="font-size: 10px;">Experience</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OpenCV-C-C/" style="font-size: 20px;">OpenCV C/C++</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2018/01/11/test/">test</a>
+            <a href="/2018/01/08/photogragh/">[OpenCV] 實作拍照程式</a>
           </li>
         
           <li>
-            <a href="/2018/01/11/hello-world/">Hello World</a>
+            <a href="/2017/12/25/install-opencv/">在 Ubuntu 安裝 OpenCV 與建置 C++ 編譯環境</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/01/107-institute-apply-sharing/">107年研究所甄試心得</a>
+          </li>
+        
+          <li>
+            <a href="/2017/11/20/face-detection/">[OpenCV] 臉部偵測 (Face Detection)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/04/linux-kernel-module/">寫一個簡單的 Linux Kernel Module</a>
           </li>
         
       </ul>
