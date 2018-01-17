@@ -411,14 +411,14 @@
 <p><br></p>
 <h2 id="臉部偵測-Face-Detection"><a href="#臉部偵測-Face-Detection" class="headerlink" title="臉部偵測 - Face Detection"></a>臉部偵測 - Face Detection</h2><p>來寫一個簡單的<strong><code>臉部偵測(Face Detection)</code></strong> 程式，使其將一張照片的人臉以及人眼圈出。</p>
 <h3 id="先建立檔案"><a href="#先建立檔案" class="headerlink" title="先建立檔案"></a>先建立檔案</h3><p>先依序建立以下幾個檔案：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir FaceID</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> FaceID</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir Picture Source</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> touch FaceDetection.cpp</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkdir FaceID</span><br><span class="line"><span class="meta">$</span> cd FaceID</span><br><span class="line"><span class="meta">$</span> mkdir Picture Source</span><br><span class="line"><span class="meta">$</span> touch FaceDetection.cpp</span><br></pre></td></tr></table></figure>
 <p>此時 FaceID 資料夾內應該要有以下檔案</p>
 <p><img src="https://raw.githubusercontent.com/a1996850622/a1996850622.github.io/master/Document/FaceID/picture01.png" alt="picture01"></p>
 <p><br></p>
 <h3 id="下載人臉以及人眼分類器"><a href="#下載人臉以及人眼分類器" class="headerlink" title="下載人臉以及人眼分類器"></a>下載人臉以及人眼分類器</h3><p>取得 <code>Eyes Classifier</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wget https://raw.githubusercontent.com/a1996850622/FaceDetection/master/Source/haarcascade_eye_tree_eyeglasses.xml</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wget https://raw.githubusercontent.com/a1996850622/FaceDetection/master/Source/haarcascade_eye_tree_eyeglasses.xml</span><br></pre></td></tr></table></figure>
 <p>取得 <code>Face Classifier</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wget https://raw.githubusercontent.com/a1996850622/FaceDetection/master/Source/haarcascade_frontalface_default.xml</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wget https://raw.githubusercontent.com/a1996850622/FaceDetection/master/Source/haarcascade_frontalface_default.xml</span><br></pre></td></tr></table></figure>
 <p>接著將取得的兩個 XML 檔<strong><code>放進 Source 資料夾</code></strong>中</p>
 <blockquote>
 <p>XML 是可自行定義各標籤名稱的標記式語言，透過透過標記式語言，電腦之間便可以傳輸各種資訊。所以當我們 Load 上面兩個 XML 進程式之後，便可以使用他們的演算法來找出人臉及眼睛。</p>
@@ -808,7 +808,7 @@
   
 
     
-      <script id="dsq-count-scr" src="https://a1996850622.github.io.disqus.com/count.js" async></script>
+      <script id="dsq-count-scr" src="https://https-a1996850622-github-io-1.disqus.com/count.js" async></script>
     
 
     
@@ -819,7 +819,7 @@
           this.page.title = '[OpenCV] 臉部偵測 (Face Detection)';
         };
         var d = document, s = d.createElement('script');
-        s.src = 'https://a1996850622.github.io.disqus.com/embed.js';
+        s.src = 'https://https-a1996850622-github-io-1.disqus.com/embed.js';
         s.setAttribute('data-timestamp', '' + +new Date());
         (d.head || d.body).appendChild(s);
       </script>
