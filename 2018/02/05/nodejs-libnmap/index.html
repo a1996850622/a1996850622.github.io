@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Node.js Nmap," />
 
 
 
@@ -79,13 +79,21 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Chris&#39;s Home">
-<meta property="og:url" content="http://yoursite.com/tags/Linux/index.html">
+<meta name="description" content="利用 Nmap 來進行 IP&amp;amp;PORT 掃描1. Nmap 介紹Nmap 是一款用於網路發現和安全審計的網路安全工具，它是 Open Source 的軟體。Nmap 是 Network Mapper 的簡稱。通常情況下，Nmap用於：  列舉網路主機清單 管理服務升級排程 監控主機 服務執行狀況  Nmap可以檢測目標主機是否線上、port 開放情況、偵測執行的服務類型及版本資訊、偵測作業">
+<meta name="keywords" content="Node.js Nmap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 的 Nmap 運用">
+<meta property="og:url" content="http://yoursite.com/2018/02/05/nodejs-libnmap/index.html">
 <meta property="og:site_name" content="Chris&#39;s Home">
+<meta property="og:description" content="利用 Nmap 來進行 IP&amp;amp;PORT 掃描1. Nmap 介紹Nmap 是一款用於網路發現和安全審計的網路安全工具，它是 Open Source 的軟體。Nmap 是 Network Mapper 的簡稱。通常情況下，Nmap用於：  列舉網路主機清單 管理服務升級排程 監控主機 服務執行狀況  Nmap可以檢測目標主機是否線上、port 開放情況、偵測執行的服務類型及版本資訊、偵測作業">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/cfulXSD.png">
+<meta property="og:image" content="https://i.imgur.com/r9UrmjR.png">
+<meta property="og:updated_time" content="2018-02-05T06:05:20.520Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chris&#39;s Home">
+<meta name="twitter:title" content="Node.js 的 Nmap 運用">
+<meta name="twitter:description" content="利用 Nmap 來進行 IP&amp;amp;PORT 掃描1. Nmap 介紹Nmap 是一款用於網路發現和安全審計的網路安全工具，它是 Open Source 的軟體。Nmap 是 Network Mapper 的簡稱。通常情況下，Nmap用於：  列舉網路主機清單 管理服務升級排程 監控主機 服務執行狀況  Nmap可以檢測目標主機是否線上、port 開放情況、偵測執行的服務類型及版本資訊、偵測作業">
+<meta name="twitter:image" content="https://i.imgur.com/cfulXSD.png">
 
 
 
@@ -115,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Linux/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/05/nodejs-libnmap/"/>
 
 
 
 
 
-  <title>Tag: Linux | Chris's Home</title>
+  <title>Node.js 的 Nmap 運用 | Chris's Home</title>
   
 
 
@@ -140,7 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -278,54 +286,212 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Linux<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/nodejs-libnmap/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Yuan Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chris's Home">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/05/04/linux-kernel-module/" itemprop="url">
-              
-                <span itemprop="name">寫一個簡單的 Linux Kernel Module</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Node.js 的 Nmap 運用</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-04T08:00:00+08:00"
-              content="2017-05-04" >
-          05-04
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-05T00:00:00+08:00">
+                2018-02-05
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/05/nodejs-libnmap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/02/05/nodejs-libnmap/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="利用-Nmap-來進行-IP-amp-PORT-掃描"><a href="#利用-Nmap-來進行-IP-amp-PORT-掃描" class="headerlink" title="利用 Nmap 來進行 IP&amp;PORT 掃描"></a>利用 Nmap 來進行 IP&amp;PORT 掃描</h2><h3 id="1-Nmap-介紹"><a href="#1-Nmap-介紹" class="headerlink" title="1. Nmap 介紹"></a>1. Nmap 介紹</h3><p>Nmap 是一款用於網路發現和安全審計的網路安全工具，它是 Open Source 的軟體。Nmap 是 Network Mapper 的簡稱。通常情況下，Nmap用於：</p>
+<ul>
+<li>列舉網路主機清單</li>
+<li>管理服務升級排程</li>
+<li>監控主機</li>
+<li>服務執行狀況</li>
+</ul>
+<p>Nmap可以檢測目標主機是否線上、port 開放情況、偵測執行的服務類型及版本資訊、偵測作業系統與裝置類型等資訊。 它是網路管理員必用的軟體之一，用以評估網路系統安全。</p>
+<p>此外, Nmap 也是不少駭客愛用的工具。系統管理員可以利用 Nmap 來探測工作環境中未經批准使用的伺服器，駭客通常會利用 Nmap 來搜集目標電腦的網路設定，從而計劃攻擊的方法。</p>
+<h3 id="2-安裝-Nmap"><a href="#2-安裝-Nmap" class="headerlink" title="2. 安裝 Nmap"></a>2. 安裝 Nmap</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nmap</span><br></pre></td></tr></table></figure>
+<ul>
+<li>試試看掃描自己的網域</li>
+</ul>
+<p>在 Terminal 打以下指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 後面網域請依自己的情況而定</span></span><br><span class="line">nmap 10.0.2.1/24</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>而 <strong>Node.js</strong> 中也有現成的模組可提供使用者直接操作 Nmap, 方便使用者做<strong>系統整合</strong></p>
+</blockquote>
+<h3 id="3-安裝-Node-js-的-Nmap-模組"><a href="#3-安裝-Node-js-的-Nmap-模組" class="headerlink" title="3. 安裝 Node.js 的 Nmap 模組"></a>3. 安裝 Node.js 的 Nmap 模組</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install libnmap</span><br></pre></td></tr></table></figure>
+<ul>
+<li>寫個簡單的程式掃描自己看看</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引進 Node.js 的 Nmap module</span></span><br><span class="line"><span class="keyword">var</span> nmap = <span class="built_in">require</span>(<span class="string">'libnmap'</span>)</span><br><span class="line"><span class="comment">// 下面的 range 和 ports 同樣視自己情況而定</span></span><br><span class="line">    ,opts = &#123;</span><br><span class="line">      ports: [<span class="string">"3000"</span>],</span><br><span class="line">      range: [<span class="string">"192.168.43.1/24"</span>]</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 libnmap 模組中的 scan 函數來做掃描</span></span><br><span class="line">nmap.scan(opts, <span class="function"><span class="keyword">function</span>(<span class="params">err, report</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> item <span class="keyword">in</span> report) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(report[item]));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>掃出來的結果你會發現是這樣…</li>
+</ul>
+<p><img src="https://i.imgur.com/cfulXSD.png" alt=""></p>
+<h3 id="4-抽絲剝繭拿出想看的資料"><a href="#4-抽絲剝繭拿出想看的資料" class="headerlink" title="4. 抽絲剝繭拿出想看的資料"></a>4. 抽絲剝繭拿出想看的資料</h3><p>從上面的結果中你可以發現, 倘若你直接掃描, 裏面的資料會非常多且複雜， 如果你只想拿出特定自己想看的部份就需要利用層層的 for 迴圈來取資料</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nmap = <span class="built_in">require</span>(<span class="string">'libnmap'</span>)</span><br><span class="line">    ,opts = &#123;</span><br><span class="line">      ports: [<span class="string">"3000"</span>],</span><br><span class="line">      range: [<span class="string">"192.168.43.1/24"</span>]</span><br><span class="line">    &#125;;</span><br><span class="line"> </span><br><span class="line">nmap.scan(opts, <span class="function"><span class="keyword">function</span>(<span class="params">err, report</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> result = &#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> ip_num = <span class="string">""</span>,</span><br><span class="line">      port_num = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> item <span class="keyword">in</span> report) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> host <span class="keyword">in</span> report[item].host) &#123;</span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">var</span> ports <span class="keyword">in</span> report[item].host[host].ports) &#123;</span><br><span class="line">              ip_num = report[item].host[host].address[<span class="number">0</span>].item.addr;</span><br><span class="line">              <span class="built_in">console</span>.log(ip_num);</span><br><span class="line">              result[ip_num] = [];</span><br><span class="line">              <span class="keyword">for</span> (<span class="keyword">var</span> port <span class="keyword">in</span> report[item].host[host].ports[ports].port) &#123;               </span><br><span class="line">                  <span class="keyword">if</span> (report[item].host[host].ports[ports].port[port].state[<span class="number">0</span>].item.state == <span class="string">'open'</span>) &#123;</span><br><span class="line">                      port_num = report[item].host[host].ports[ports].port[port].item.portid;</span><br><span class="line">                      <span class="built_in">console</span>.log(port_num);</span><br><span class="line">                      result[ip_num].push(port_num);</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">if</span> (result[ip_num].length == <span class="number">0</span>) <span class="comment">//刪除長度為零的元素</span></span><br><span class="line">                  <span class="keyword">delete</span> result[ip_num];</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此時掃出來的結果就會非常乾淨</li>
+</ul>
+<p><img src="https://i.imgur.com/r9UrmjR.png" alt=""></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node-js-Nmap/" rel="tag"># Node.js Nmap</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/08/photogragh/" rel="next" title="[OpenCV] 實作拍照程式">
+                <i class="fa fa-chevron-left"></i> [OpenCV] 實作拍照程式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -333,6 +499,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -353,8 +533,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -428,6 +617,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用-Nmap-來進行-IP-amp-PORT-掃描"><span class="nav-number">1.</span> <span class="nav-text">利用 Nmap 來進行 IP&amp;PORT 掃描</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Nmap-介紹"><span class="nav-number">1.1.</span> <span class="nav-text">1. Nmap 介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安裝-Nmap"><span class="nav-number">1.2.</span> <span class="nav-text">2. 安裝 Nmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安裝-Node-js-的-Nmap-模組"><span class="nav-number">1.3.</span> <span class="nav-text">3. 安裝 Node.js 的 Nmap 模組</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-抽絲剝繭拿出想看的資料"><span class="nav-number">1.4.</span> <span class="nav-text">4. 抽絲剝繭拿出想看的資料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -568,6 +773,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -585,6 +794,18 @@
       <script id="dsq-count-scr" src="https://https-a1996850622-github-io-1.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/02/05/nodejs-libnmap/';
+          this.page.identifier = '2018/02/05/nodejs-libnmap/';
+          this.page.title = 'Node.js 的 Nmap 運用';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-a1996850622-github-io-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
